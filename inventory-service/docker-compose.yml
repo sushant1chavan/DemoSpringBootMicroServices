@@ -1,0 +1,15 @@
+version: '4'
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: inventory-service-mysql #we changed the name to inventory-service-mysql from mysql as we have same name container for order service
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    ports:
+      - "3316:3306" #changed port to 3316 from 3306 as 3306 is used by order service
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+#here we did slight change from order service
+#just added the init.sql file in mysql folder and not /docker/mysql folder
+# and we added /docker/myql/data instead of only ./mysql
